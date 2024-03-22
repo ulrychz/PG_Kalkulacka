@@ -1,0 +1,73 @@
+﻿@page "/kalk"
+<PageTitle>Kalkulačka</PageTitle>
+
+<h2>Základní matematické operace</h2>
+<hr />
+
+<div>
+    <label>Číslo 1: <input @bind-value="cislo1" @oninput ="()=>chybaText = string.Empty" /></label>
+    <br />
+    <label>Číslo 2: <input @bind-value="cislo2" /></label>
+</div>
+
+<div class="mt-3">
+    <button @onclick="Soucet" class="btn btn-light">Součet (+) </button>
+    <button @onclick="Rozdil" class="btn btn-success">Rozdíl (-) </button>
+    <button @onclick="Soucin" class="btn btn-info">Součin (*) </button>
+    <button @onclick="Podil" class="btn btn-warning">Podíl (/) </button>
+</div>
+
+<div class="mt-3">
+    @* <label>Výsledek: <input @bind-value="vysledek" disabled /> </label> *@
+    <label>Výsledek: <input @bind-value="vysledek" readonly /> </label>
+</div>
+@if (chybaText != "")
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Chyba!</strong> @chybaText
+    </div>
+}
+
+
+@code {
+    private short cislo1 = 10;
+    private short cislo2;
+    private short vysledek;
+    private string chybaText = "";
+    private void Soucet()
+    {
+        chybaText = "";
+
+        try
+        {
+            checked
+            {
+                vysledek = (short)(cislo1 + cislo2); // hdhfgh
+            }
+        }
+        catch (Exception ex)
+        {
+            //chybaText = ex.ToString();
+            chybaText = $"Došlo k přetečení. Hodnota {cislo1 + cislo2} je větší než {short.MaxValue}";
+            //throw;
+        }
+      
+    }
+
+    private void Rozdil()
+    {
+        chybaText = "";
+
+        vysledek = (short)(cislo1 - cislo2); // hdhfgh
+    }
+
+    private void Soucin()
+    {
+        vysledek = (short)(cislo1 * cislo2); // hdhfgh
+    }
+
+    private void Podil()
+    {
+        vysledek = (short)(cislo1 / cislo2); // hdhfgh
+    }
+}
